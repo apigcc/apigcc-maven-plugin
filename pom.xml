@@ -7,6 +7,26 @@
     <groupId>com.github.apiggs</groupId>
     <artifactId>apiggs-maven-plugin</artifactId>
     <version>1.0</version>
+    <name>apiggs-maven-plugin</name>
+    <description>easy use apiggs with maven.</description>
+    <url>https://github.com/apiggs/apiggs-maven-plugin</url>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>ayz6uem</id>
+            <name>ayz6uem</name>
+            <email>360188606@qq.com</email>
+        </developer>
+    </developers>
+    <scm>
+        <connection>https://github.com/apiggs/apiggs-maven-plugin.git</connection>
+        <developerConnection>https://github.com/apiggs/apiggs-maven-plugin.git</developerConnection>
+        <url>https://github.com/apiggs/apiggs-maven-plugin.git</url>
+    </scm>
 
     <properties>
         <java.version>1.8</java.version>

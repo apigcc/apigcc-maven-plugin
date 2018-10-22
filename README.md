@@ -1,5 +1,5 @@
-# apiggy-maven-plugin
-easy use apiggy with maven
+# apiggs-maven-plugin
+easy use apiggs with maven
 
 ### install
 ```xml
