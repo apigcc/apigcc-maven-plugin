@@ -72,7 +72,40 @@
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>3.5.2</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>bintray-apiggs-maven</id>
+            <url>https://api.bintray.com/maven/apiggs/maven/apiggs-maven-plugin/;publish=1</url>
+        </repository>
+    </distributionManagement>
 
 </project>
