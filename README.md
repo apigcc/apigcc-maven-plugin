@@ -20,6 +20,9 @@ easy use apiggs with maven
     </configuration>
 </plugin>
 ```
+
+when you compile source code, apiggs will build rest doc.
+
 ### options
 
 
