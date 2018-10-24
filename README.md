@@ -1,4 +1,6 @@
 # apiggs-maven-plugin
+[ ![Download](https://api.bintray.com/packages/apiggs/maven/apiggs-maven-plugin/images/download.svg) ](https://bintray.com/apiggs/maven/apiggs-maven-plugin/_latestVersion)
+
 easy use apiggs with maven
 
 ### install
@@ -6,7 +8,7 @@ easy use apiggs with maven
 <plugin>
     <groupId>com.github.apiggs</groupId>
     <artifactId>apiggs-maven-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <executions>
         <execution>
             <phase>compile</phase>
