@@ -1,8 +1,6 @@
 package com.github.apiggs;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -13,7 +11,7 @@ import java.nio.file.Paths;
 /**
  * generate rest doc with apiggs
  */
-@Mojo(name = "apiggs")
+@Mojo(name = Environment.NAME)
 public class ApiggsMojo extends AbstractMojo {
 
     MavenProject project;
@@ -26,6 +24,8 @@ public class ApiggsMojo extends AbstractMojo {
     String description;
     @Parameter
     String out;
+    @Parameter
+    String production;
     //传字符串，使用逗号分隔
     String source;
     @Parameter
@@ -37,7 +37,7 @@ public class ApiggsMojo extends AbstractMojo {
     @Parameter
     String version;
 
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() {
         if(getPluginContext().containsKey("project") && getPluginContext().get("project") instanceof MavenProject){
             project = (MavenProject) getPluginContext().get("project");
             build();
@@ -50,11 +50,9 @@ public class ApiggsMojo extends AbstractMojo {
             for (String dir : source.split(",")) {
                 Path path = resolve(dir);
                 env.source(path);
-                System.out.println("source "+path);
             }
         } else {
             Path source = Paths.get(project.getBuild().getSourceDirectory());
-            System.out.println("source " + source);
             env.source(source);
         }
         if (dependency != null) {
@@ -62,20 +60,21 @@ public class ApiggsMojo extends AbstractMojo {
             for (String dir : dirs) {
                 Path path = resolve(dir);
                 env.dependency(path);
-                System.out.println("dependency "+path);
             }
         }
         if (jar != null) {
             for (String dir : jar.split(",")) {
                 Path path = resolve(dir);
                 env.jar(path);
-                System.out.println("jar "+path);
             }
         }
         if (id != null) {
             env.id(id);
         } else {
             env.id(project.getName());
+        }
+        if (production != null){
+            env.production(Paths.get(production));
         }
         if (out != null) {
             Path path = resolve(out);
@@ -104,9 +103,8 @@ public class ApiggsMojo extends AbstractMojo {
 
         new Apiggs(env).lookup().build();
 
-        System.out.println("\r\n\napiggs build on "+env.getOut());
+        System.out.println("\r\n\n"+Environment.NAME+" build on "+env.getOut());
     }
-
 
     private Path resolve(String dir){
         Path path = Paths.get(dir);
@@ -179,5 +177,13 @@ public class ApiggsMojo extends AbstractMojo {
 
     public void setIgnore(String ignore) {
         this.ignore = ignore;
+    }
+
+    public void setProduction(String production) {
+        this.production = production;
+    }
+
+    public String getProduction() {
+        return production;
     }
 }
