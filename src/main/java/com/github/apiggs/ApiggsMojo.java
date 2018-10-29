@@ -53,8 +53,10 @@ public class ApiggsMojo extends AbstractMojo {
             }
         } else {
             env.source(Paths.get(project.getBuild().getSourceDirectory()));
-            for (MavenProject sub : project.getCollectedProjects()) {
-                env.source(Paths.get(sub.getBuild().getSourceDirectory()));
+            if(project.getCollectedProjects()!=null){
+                for (MavenProject sub : project.getCollectedProjects()) {
+                    env.source(Paths.get(sub.getBuild().getSourceDirectory()));
+                }
             }
         }
         if (dependency != null) {
@@ -64,7 +66,7 @@ public class ApiggsMojo extends AbstractMojo {
                 env.dependency(path);
             }
         }else{
-            if(project.getParent()!=null){
+            if(project.getParent()!=null && project.getParent().getCollectedProjects()!=null){
                 for (MavenProject p : project.getParent().getCollectedProjects()) {
                     String path = p.getBuild().getSourceDirectory();
                     env.dependency(Paths.get(path));
