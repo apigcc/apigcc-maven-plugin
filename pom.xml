@@ -6,7 +6,7 @@
 
     <groupId>com.github.apiggs</groupId>
     <artifactId>apiggs-maven-plugin</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
     <name>apiggs-maven-plugin</name>
     <description>easy use apiggs with maven.</description>
     <url>https://github.com/apiggs/apiggs-maven-plugin</url>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>com.github.apiggs</groupId>
             <artifactId>apiggs</artifactId>
-            <version>1.1</version>
+            <version>1.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
