@@ -8,7 +8,7 @@ easy use apiggs with maven
 <plugin>
     <groupId>com.github.apiggs</groupId>
     <artifactId>apiggs-maven-plugin</artifactId>
-    <version>[1.0,)</version>
+    <version><!-- 替换为上方版本号 --></version>
     <executions>
         <execution>
             <phase>compile</phase>
