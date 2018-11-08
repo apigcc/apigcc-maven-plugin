@@ -6,7 +6,7 @@
 
     <groupId>com.github.apiggs</groupId>
     <artifactId>apiggs-maven-plugin</artifactId>
-    <version>1.6-SNAPSHOT</version>
+    <version>1.6</version>
 
     <name>apiggs-maven-plugin</name>
     <description>easy use apiggs with maven.</description>
