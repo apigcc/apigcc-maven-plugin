@@ -36,6 +36,8 @@ public class ApiggsMojo extends AbstractMojo {
     String ignore;
     @Parameter
     String version;
+    @Parameter
+    String css;
 
     public void execute() {
         if(getPluginContext().containsKey("project") && getPluginContext().get("project") instanceof MavenProject){
@@ -110,6 +112,9 @@ public class ApiggsMojo extends AbstractMojo {
         }
         if (ignore != null) {
             env.ignore(ignore.split(","));
+        }
+        if (css != null) {
+            env.css(css);
         }
 
         new Apiggs(env).lookup().build();
