@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.apiggs</groupId>
-    <artifactId>apiggs-maven-plugin</artifactId>
+    <groupId>com.apigcc</groupId>
+    <artifactId>apigcc-maven-plugin</artifactId>
     <version>1.6</version>
 
     <name>apiggs-maven-plugin</name>
@@ -52,8 +52,8 @@
             <version>3.5.2</version>
         </dependency>
         <dependency>
-            <groupId>com.github.apiggs</groupId>
-            <artifactId>apiggs</artifactId>
+            <groupId>com.apigcc</groupId>
+            <artifactId>apigcc</artifactId>
             <version>${version}</version>
         </dependency>
     </dependencies>

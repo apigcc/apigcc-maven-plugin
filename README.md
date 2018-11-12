@@ -1,7 +1,7 @@
 # apiggs-maven-plugin
 [ ![Download](https://api.bintray.com/packages/apiggs/maven/apiggs-maven-plugin/images/download.svg) ](https://bintray.com/apiggs/maven/apiggs-maven-plugin/_latestVersion)
 
-easy use apiggs with maven
+easy use apigcc with maven
 
 ### install
 ```xml

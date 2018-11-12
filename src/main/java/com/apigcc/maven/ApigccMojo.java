@@ -1,5 +1,8 @@
-package com.github.apiggs;
+package com.apigcc.maven;
 
+import com.apigcc.Apigcc;
+import com.apigcc.Context;
+import com.apigcc.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -11,8 +14,8 @@ import java.nio.file.Paths;
 /**
  * generate rest doc with apiggs
  */
-@Mojo(name = Environment.NAME)
-public class ApiggsMojo extends AbstractMojo {
+@Mojo(name = Context.NAME)
+public class ApigccMojo extends AbstractMojo {
 
     MavenProject project;
 
@@ -47,17 +50,17 @@ public class ApiggsMojo extends AbstractMojo {
     }
 
     private void build(){
-        Environment env = new Environment();
+        Options options = new Options();
         if (source != null) {
             for (String dir : source.split(",")) {
                 Path path = resolve(dir);
-                env.source(path);
+                options.source(path);
             }
         } else {
-            env.source(Paths.get(project.getBuild().getSourceDirectory()));
+            options.source(Paths.get(project.getBuild().getSourceDirectory()));
             if(project.getCollectedProjects()!=null){
                 for (MavenProject sub : project.getCollectedProjects()) {
-                    env.source(Paths.get(sub.getBuild().getSourceDirectory()));
+                    options.source(Paths.get(sub.getBuild().getSourceDirectory()));
                 }
             }
         }
@@ -65,59 +68,59 @@ public class ApiggsMojo extends AbstractMojo {
             String[] dirs = dependency.split(",");
             for (String dir : dirs) {
                 Path path = resolve(dir);
-                env.dependency(path);
+                options.dependency(path);
             }
         }else{
             if(project.getParent()!=null && project.getParent().getCollectedProjects()!=null){
                 for (MavenProject p : project.getParent().getCollectedProjects()) {
                     String path = p.getBuild().getSourceDirectory();
-                    env.dependency(Paths.get(path));
+                    options.dependency(Paths.get(path));
                 }
             }
         }
         if (jar != null) {
             for (String dir : jar.split(",")) {
                 Path path = resolve(dir);
-                env.jar(path);
+                options.jar(path);
             }
         }
         if (id != null) {
-            env.id(id);
+            options.id(id);
         } else {
-            env.id(project.getName());
+            options.id(project.getName());
         }
         if (production != null){
-            env.production(Paths.get(production));
+            options.production(Paths.get(production));
         }
         if (out != null) {
             Path path = resolve(out);
-            env.out(path);
+            options.out(path);
         } else {
-            env.out(Paths.get(project.getBuild().getDirectory()));
+            options.out(Paths.get(project.getBuild().getDirectory()));
         }
         if (title != null) {
-            env.title(title);
+            options.title(title);
         } else {
-            env.title(project.getName());
+            options.title(project.getName());
         }
         if (description != null) {
-            env.description(description);
+            options.description(description);
         } else if (project.getDescription()!=null) {
-            env.description(project.getDescription());
+            options.description(project.getDescription());
         }
         if (version != null){
-            env.version(version);
+            options.version(version);
         } else if (project.getVersion()!=null){
-            env.version(project.getVersion());
+            options.version(project.getVersion());
         }
         if (ignore != null) {
-            env.ignore(ignore.split(","));
+            options.ignore(ignore.split(","));
         }
         if (css != null) {
-            env.css(css);
+            options.css(css);
         }
 
-        new Apiggs(env).lookup().build();
+        new Apigcc(options).lookup().build();
 
     }
 
