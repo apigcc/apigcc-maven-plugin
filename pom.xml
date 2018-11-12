@@ -8,9 +8,9 @@
     <artifactId>apigcc-maven-plugin</artifactId>
     <version>1.6</version>
 
-    <name>apiggs-maven-plugin</name>
-    <description>easy use apiggs with maven.</description>
-    <url>https://github.com/apiggs/apiggs-maven-plugin</url>
+    <name>apigcc-maven-plugin</name>
+    <description>easy use apigcc with maven.</description>
+    <url>https://github.com/apigcc/apigcc-maven-plugin</url>
     <licenses>
         <license>
             <name>MIT License</name>
@@ -24,9 +24,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>https://github.com/apiggs/apiggs-maven-plugin.git</connection>
-        <developerConnection>https://github.com/apiggs/apiggs-maven-plugin.git</developerConnection>
-        <url>https://github.com/apiggs/apiggs-maven-plugin.git</url>
+        <connection>https://github.com/apigcc/apigcc-maven-plugin.git</connection>
+        <developerConnection>https://github.com/apigcc/apigcc-maven-plugin.git</developerConnection>
+        <url>https://github.com/apigcc/apigcc-maven-plugin.git</url>
     </scm>
 
     <properties>
@@ -104,8 +104,8 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-apiggs-maven</id>
-            <url>https://api.bintray.com/maven/apiggs/maven/apiggs-maven-plugin/;publish=1</url>
+            <id>bintray-apigcc-maven</id>
+            <url>https://api.bintray.com/maven/apiggs/maven/apigcc-maven-plugin/;publish=1</url>
         </repository>
     </distributionManagement>
 

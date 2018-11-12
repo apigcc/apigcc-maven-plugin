@@ -12,7 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * generate rest doc with apiggs
+ * generate rest doc with apigcc
  */
 @Mojo(name = Context.NAME)
 public class ApigccMojo extends AbstractMojo {
