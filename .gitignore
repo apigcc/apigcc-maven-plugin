@@ -26,4 +26,3 @@ target
 .gradle
 out
 build
-gradle.properties

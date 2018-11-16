@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>com.apigcc</groupId>
-            <artifactId>apigcc</artifactId>
+            <artifactId>core</artifactId>
             <version>${version}</version>
         </dependency>
     </dependencies>
@@ -105,7 +105,7 @@
     <distributionManagement>
         <repository>
             <id>bintray-apigcc-maven</id>
-            <url>https://api.bintray.com/maven/apiggs/maven/apigcc-maven-plugin/;publish=1</url>
+            <url>https://api.bintray.com/maven/apigcc/maven/apigcc-maven-plugin/;publish=1</url>
         </repository>
     </distributionManagement>
 

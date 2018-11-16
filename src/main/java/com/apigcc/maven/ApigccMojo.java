@@ -1,8 +1,8 @@
 package com.apigcc.maven;
 
-import com.apigcc.Apigcc;
-import com.apigcc.Context;
-import com.apigcc.Options;
+import com.apigcc.core.Apigcc;
+import com.apigcc.core.Context;
+import com.apigcc.core.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
