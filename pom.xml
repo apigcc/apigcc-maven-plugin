@@ -6,7 +6,7 @@
 
     <groupId>com.apigcc</groupId>
     <artifactId>apigcc-maven-plugin</artifactId>
-    <version>1.6</version>
+    <version>1.7.0</version>
 
     <name>apigcc-maven-plugin</name>
     <description>easy use apigcc with maven.</description>
@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>com.apigcc</groupId>
-            <artifactId>core</artifactId>
+            <artifactId>apigcc-springmvc</artifactId>
             <version>${version}</version>
         </dependency>
     </dependencies>

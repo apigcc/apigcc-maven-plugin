@@ -2,7 +2,6 @@ package com.apigcc.maven;
 
 import com.apigcc.core.Apigcc;
 import com.apigcc.core.Context;
-import com.apigcc.core.Options;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -14,7 +13,7 @@ import java.nio.file.Paths;
 /**
  * generate rest doc with apigcc
  */
-@Mojo(name = Context.NAME)
+@Mojo(name = "build")
 public class ApigccMojo extends AbstractMojo {
 
     MavenProject project;
@@ -22,26 +21,24 @@ public class ApigccMojo extends AbstractMojo {
     @Parameter
     String id;
     @Parameter
-    String title;
+    String name;
     @Parameter
     String description;
     @Parameter
-    String out;
-    @Parameter
-    String production;
+    String build;
     //传字符串，使用逗号分隔
+    @Parameter
     String source;
     @Parameter
     String dependency;
     @Parameter
     String jar;
     @Parameter
-    String ignore;
-    @Parameter
     String version;
     @Parameter
     String css;
 
+    @Override
     public void execute() {
         if(getPluginContext().containsKey("project") && getPluginContext().get("project") instanceof MavenProject){
             project = (MavenProject) getPluginContext().get("project");
@@ -50,87 +47,80 @@ public class ApigccMojo extends AbstractMojo {
     }
 
     private void build(){
-        Options options = new Options();
+        Context context = new Context();
         if (source != null) {
             for (String dir : source.split(",")) {
-                Path path = resolve(dir);
-                options.source(path);
+                context.addSource(abs(dir));
             }
         } else {
-            options.source(Paths.get(project.getBuild().getSourceDirectory()));
-            if(project.getCollectedProjects()!=null){
-                for (MavenProject sub : project.getCollectedProjects()) {
-                    options.source(Paths.get(sub.getBuild().getSourceDirectory()));
-                }
-            }
+            context.addSource(project.getBasedir().toPath());
         }
         if (dependency != null) {
-            String[] dirs = dependency.split(",");
-            for (String dir : dirs) {
-                Path path = resolve(dir);
-                options.dependency(path);
+            for (String dir : dependency.split(",")) {
+                context.addDependency(abs(dir));
             }
         }else{
-            if(project.getParent()!=null && project.getParent().getCollectedProjects()!=null){
-                for (MavenProject p : project.getParent().getCollectedProjects()) {
-                    String path = p.getBuild().getSourceDirectory();
-                    options.dependency(Paths.get(path));
-                }
-            }
+            MavenProject parent = findParent(project);
+            context.addDependency(parent.getBasedir().toPath());
         }
         if (jar != null) {
             for (String dir : jar.split(",")) {
-                Path path = resolve(dir);
-                options.jar(path);
+                context.addJar(abs(dir));
             }
         }
-        if (id != null) {
-            options.id(id);
+        context.setId(id != null?id:project.getName());
+        if (build != null) {
+            context.setBuildPath(abs(build));
         } else {
-            options.id(project.getName());
+            context.setBuildPath(Paths.get(project.getBuild().getDirectory()));
         }
-        if (production != null){
-            options.production(Paths.get(production));
-        }
-        if (out != null) {
-            Path path = resolve(out);
-            options.out(path);
+        if (name != null) {
+            context.setName(name);
         } else {
-            options.out(Paths.get(project.getBuild().getDirectory()));
-        }
-        if (title != null) {
-            options.title(title);
-        } else {
-            options.title(project.getName());
+            context.setName(project.getName());
         }
         if (description != null) {
-            options.description(description);
+            context.setDescription(description);
         } else if (project.getDescription()!=null) {
-            options.description(project.getDescription());
+            context.setDescription(project.getDescription());
         }
         if (version != null){
-            options.version(version);
+            context.setVersion(version);
         } else if (project.getVersion()!=null){
-            options.version(project.getVersion());
-        }
-        if (ignore != null) {
-            options.ignore(ignore.split(","));
+            context.setVersion(project.getVersion());
         }
         if (css != null) {
-            options.css(css);
+            context.setCss(css);
         }
 
-        new Apigcc(options).lookup().build();
+        Apigcc apigcc = new Apigcc(context);
+        apigcc.parse();
+        apigcc.render();
 
     }
 
-    private Path resolve(String dir){
+    private MavenProject findParent(MavenProject mp){
+        if(mp.getParentFile()!=null && mp.getParentFile().exists()){
+            return findParent(mp.getParent());
+        }
+        return mp;
+    }
+
+    private Path abs(String dir){
         Path path = Paths.get(dir);
         if(path.isAbsolute()){
             return path;
         }else{
             return project.getBasedir().toPath().resolve(path);
         }
+    }
+
+    public MavenProject getProject() {
+        return project;
+    }
+
+    public void setProject(MavenProject project) {
+        this.project = project;
     }
 
     public String getId() {
@@ -141,12 +131,12 @@ public class ApigccMojo extends AbstractMojo {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -157,12 +147,12 @@ public class ApigccMojo extends AbstractMojo {
         this.description = description;
     }
 
-    public String getOut() {
-        return out;
+    public String getBuild() {
+        return build;
     }
 
-    public void setOut(String out) {
-        this.out = out;
+    public void setBuild(String build) {
+        this.build = build;
     }
 
     public String getSource() {
@@ -189,19 +179,19 @@ public class ApigccMojo extends AbstractMojo {
         this.jar = jar;
     }
 
-    public String getIgnore() {
-        return ignore;
+    public String getVersion() {
+        return version;
     }
 
-    public void setIgnore(String ignore) {
-        this.ignore = ignore;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
-    public void setProduction(String production) {
-        this.production = production;
+    public String getCss() {
+        return css;
     }
 
-    public String getProduction() {
-        return production;
+    public void setCss(String css) {
+        this.css = css;
     }
 }
